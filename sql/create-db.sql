@@ -93,3 +93,17 @@ CREATE TABLE IF NOT EXISTS amiusage (
   lastused TIMESTAMPTZ NOT NULL, -- most recent usage
   PRIMARY KEY(id, region)
 );
+
+-- Spot Instance Outcomes
+CREATE TABLE IF NOT EXISTS spotinstanceoutcomes (
+  created TIMESTAMPTZ NOT NULL, -- most recent usage
+  region VARCHAR(128) NOT NULL, -- ec2 region
+  az VARCHAR(128) NOT NULL, -- availability zone
+  id VARCHAR(128) NOT NULL, -- opaque ID per Amazon
+  instanceType VARCHAR(128) NOT NULL, -- ec2 instance type
+  imageid VARCHAR(128) NOT NULL, -- AMI/ImageId value
+  outcome VARCHAR(128) NOT NULL, -- e.g. 'fulfilled', 'rejected' or 'killed'
+  statuscode VARCHAR(128) NOT NULL, -- the verbatim string from the EC2 API about
+  resolved TIMESTAMPTZ NOT NULL, -- Time of resolution
+  PRIMARY KEY(created, region, az, id)
+);
